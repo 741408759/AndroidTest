@@ -1,4 +1,4 @@
-package com.example.ex06_10;
+ï»¿package com.example.ex06_10;
 
 
 import java.io.BufferedOutputStream;
@@ -28,7 +28,8 @@ public class MainActivity extends Activity
 		SurfaceHolder holder;
 		ImageView mImageView;
 		Button paizhaoBtn, exitBtn;
-		String path = "/sdcard/zsm/camera.jpg";   //ÕÕÆ¬µÄ±£´æÂ·¾¶¼°ÎÄ¼şÃû
+		String path = "/sdcard/zsm/camera.jpg";   //ç…§ç‰‡çš„ä¿å­˜è·¯å¾„åŠæ–‡ä»¶å,ä¸ºäº†ä»¥åæŸ¥çœ‹æ–¹ä¾¿
+		
     @SuppressWarnings("deprecation")
 	@Override
     public void onCreate(Bundle savedInstanceState)
@@ -43,11 +44,11 @@ public class MainActivity extends Activity
         paizhaoBtn.setOnClickListener(new mClick());
         exitBtn.setOnClickListener(new mClick());
         surfaceView =(SurfaceView)findViewById(R.id.surfaceView1);
-        //´´½¨SurfaceHolder¶ÔÏó
+        //åˆ›å»ºSurfaceHolderå¯¹è±¡
         holder = surfaceView.getHolder();
-        //×¢²á»Øµ÷¼àÌıÆ÷
+        //æ³¨å†Œå›è°ƒç›‘å¬å™¨
         holder.addCallback(this);
-        //ÉèÖÃSurfaceHolderµÄÀàĞÍ
+        //è®¾ç½®SurfaceHolderçš„ç±»å‹
         holder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);       
    
     }
@@ -58,10 +59,10 @@ public class MainActivity extends Activity
  	  public void onClick(View v) 
  	  {
  		   if(v == paizhaoBtn)
- 			   /* ÅÄÕÕ */
+ 			   /* æ‹ç…§ */
  		       mCamera.takePicture(null, null, new jpegCallback());
  		   else if(v == exitBtn)
- 			   exit();  //ÍË³ö
+ 			   exit();  //é€€å‡º
  	  }
     }
   
@@ -76,7 +77,7 @@ public class MainActivity extends Activity
 	public void surfaceChanged(SurfaceHolder holder, int format, int width,
 			int height)
 	{
-		/* µ÷ÓÃÉèÖÃÕÕÏà»úÈ¡¾°²ÎÊıµÄ·½·¨ */
+		/* è°ƒç”¨è®¾ç½®ç…§ç›¸æœºå–æ™¯å‚æ•°çš„æ–¹æ³• */
 		initCamera();   
 		
 	}
@@ -84,13 +85,13 @@ public class MainActivity extends Activity
 	@Override
 	public void surfaceCreated(SurfaceHolder holder) 
 	{
-		 /* ´ò¿ªÏà»ú */
+		 /* æ‰“å¼€ç›¸æœº */
 	    mCamera = Camera.open();
 	    try {
-	    	 /* ÉèÖÃÔ¤ÀÀ */
+	    	 /* è®¾ç½®é¢„è§ˆ */
 			mCamera.setPreviewDisplay(holder);
 		} catch (IOException e) {
-			System.out.println("Ô¤ÀÀ´íÎó");
+			System.out.println("é¢„è§ˆé”™è¯¯");
 		}
 		
 	}
@@ -102,43 +103,43 @@ public class MainActivity extends Activity
 		
 	}
 
-	/* ÉèÖÃÕÕÏà»úÈ¡¾°²ÎÊı */
+	/* è®¾ç½®ç…§ç›¸æœºå–æ™¯å‚æ•° */
 	private void initCamera()
 	{
-	    /* ´´½¨Camera.Parameters¶ÔÏó */
+	    /* åˆ›å»ºCamera.Parameterså¯¹è±¡ */
 	    Camera.Parameters parameters = mCamera.getParameters();
-	    /* ÉèÖÃÏàÆ¬¸ñÊ½ÎªJPEG */
+	    /* è®¾ç½®ç›¸ç‰‡æ ¼å¼ä¸ºJPEG */
 	    parameters.setPictureFormat(PixelFormat.JPEG);
-	    /* Ö¸¶¨previewµÄÆÁÄ»´óĞ¡ */
+	    /* æŒ‡å®špreviewçš„å±å¹•å¤§å° */
 	    parameters.setPreviewSize(320, 240);
-	    /* ÉèÖÃÍ¼Æ¬·Ö±æÂÊ´óĞ¡ */
+	    /* è®¾ç½®å›¾ç‰‡åˆ†è¾¨ç‡å¤§å° */
 	    parameters.setPictureSize(320, 240);
-	    /* ½«Camera.ParametersÉèÖÃÓèCamera */
+	    /* å°†Camera.Parametersè®¾ç½®äºˆCamera */
 	    mCamera.setParameters(parameters);
-	     /* ´ò¿ªÔ¤ÀÀ */
+	     /* æ‰“å¼€é¢„è§ˆ */
 	    mCamera.startPreview();
 	 }
 	
-	//±£´æ¼°ÏÔÊ¾ÅÄÕÕµÄÍ¼Ïñ
+	//ä¿å­˜åŠæ˜¾ç¤ºæ‹ç…§çš„å›¾åƒ
 	class jpegCallback implements PictureCallback
 	{
 		@Override
 		public void onPictureTaken(byte[] data, Camera camera) 
 		{
-			  /* onPictureTaken´«ÈëµÄµÚÒ»¸ö²ÎÊı¼´ÎªÏàÆ¬µÄbyte */
+			  /* onPictureTakenä¼ å…¥çš„ç¬¬ä¸€ä¸ªå‚æ•°å³ä¸ºç›¸ç‰‡çš„byte */
 		       Bitmap bm = BitmapFactory.decodeByteArray
 		                   (data, 0, data.length);
 		       try
 		       {
 		         BufferedOutputStream bos = new BufferedOutputStream
 		         (new FileOutputStream(path));
-		         /* ²ÉÓÃÑ¹Ëõ×ªµµ·½·¨ */
+		         /* é‡‡ç”¨å‹ç¼©è½¬æ¡£æ–¹æ³• */
 		         bm.compress(Bitmap.CompressFormat.JPEG, 80, bos);
-		         /* µ÷ÓÃflush()·½·¨£¬¸üĞÂBufferStream */
+		         /* è°ƒç”¨flush()æ–¹æ³•ï¼Œæ›´æ–°BufferStream */
 		         bos.flush();
-		         /* ½áÊøOutputStream */
+		         /* ç»“æŸOutputStream */
 		         bos.close();
-		         /* ÏÔÊ¾ÅÄÕÕµÄÍ¼Ïñ */ 
+		         /* æ˜¾ç¤ºæ‹ç…§çš„å›¾åƒ */ 
 		          mImageView.setImageBitmap(bm);
 		       }
 		       catch (Exception e)
@@ -151,9 +152,9 @@ public class MainActivity extends Activity
 }
 
 /**  
- * ĞÂ½¨ÏîÄ¿ex06_10ºó£¬½ÓÏÂÀ´µÄ²½ÖèÈçÏÂ£º
- * 1¡¢±àĞ´ÓÃ»§½çÃæ³ÌĞò
- * 2¡¢±àĞ´Ö÷¿Ø³ÌĞò
- * 3¡¢ĞŞ¸ÄÅäÖÃÎÄ¼ş
+ * æ–°å»ºé¡¹ç›®ex06_10åï¼Œæ¥ä¸‹æ¥çš„æ­¥éª¤å¦‚ä¸‹ï¼š
+ * 1ã€ç¼–å†™ç”¨æˆ·ç•Œé¢ç¨‹åº
+ * 2ã€ç¼–å†™ä¸»æ§ç¨‹åº
+ * 3ã€ä¿®æ”¹é…ç½®æ–‡ä»¶
  * 
  * */
